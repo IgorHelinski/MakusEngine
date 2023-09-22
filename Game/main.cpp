@@ -1,7 +1,8 @@
-#include <iostream>
+#include <MakusEngine.h>
 
 int main() {
-	std::cout << "Hello World" << '\n';
+	MakusEngine engine;
+	engine.StartMakus();
 
 	return 0;
 }
