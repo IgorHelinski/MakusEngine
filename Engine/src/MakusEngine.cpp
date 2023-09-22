@@ -2,6 +2,7 @@
 #include <glad/glad.h>
 #include <GLFW/include/glfw3.h>
 #include <Window.h>
+#include <Graphics.h>
 #include <iostream>
 
 MakusEngine::MakusEngine()
@@ -18,11 +19,8 @@ void MakusEngine::StartMakus()
 	window.InitWindow();
 	window.CreateWindow(800, 600, "Makus Engine dev build");
 
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-	{
-		std::cout << "Failed to initialize GLAD" << std::endl;
-		return;
-	}
+	Graphics graphics;
+	graphics.InitGraphics();
 
 	OnCreate();
 
@@ -45,7 +43,8 @@ void MakusEngine::OnCreate()
 
 void MakusEngine::OnUpdate()
 {
-	
+	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
 }
 
 void MakusEngine::OnQuit()
