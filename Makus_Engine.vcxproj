@@ -71,20 +71,24 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>Engine/libs/;Engine/src/;Engine/include/;$(IncludePath)</IncludePath>
+    <IncludePath>Engine/src/;Engine/include/;$(IncludePath)</IncludePath>
     <LibraryPath>Engine/libs/GLFW/lib/;$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>Engine/libs/;Engine/libs/glad/include;$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>Engine/libs/;Engine/src/;Engine/include/;$(IncludePath)</IncludePath>
+    <IncludePath>Engine/src/;Engine/include/;$(IncludePath)</IncludePath>
     <LibraryPath>Engine/libs/GLFW/lib/;$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>Engine/libs/;Engine/libs/glad/include;$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>Engine/libs/;Engine/src/;Engine/include/;$(IncludePath)</IncludePath>
+    <IncludePath>Engine/src/;Engine/include/;$(IncludePath)</IncludePath>
     <LibraryPath>Engine/libs/GLFW/lib/;$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>Engine/libs/;Engine/libs/glad/include;$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>Engine/libs/;Engine/src/;Engine/include/;$(IncludePath)</IncludePath>
+    <IncludePath>Engine/src/;Engine/include/;$(IncludePath)</IncludePath>
     <LibraryPath>Engine/libs/GLFW/lib/;$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>Engine/libs/;Engine/libs/glad/include;$(ExternalIncludePath)</ExternalIncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -97,6 +101,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/NODEFAULTLIB:MSVCRT.lib %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -114,6 +119,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/NODEFAULTLIB:MSVCRT.lib %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -127,6 +133,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/NODEFAULTLIB:MSVCRT.lib %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -144,16 +151,20 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/NODEFAULTLIB:MSVCRT.lib %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\ZiraelEngine\OGL3D\vendor\glad\src\glad.c" />
     <ClCompile Include="Game\main.cpp" />
     <ClCompile Include="Engine\src\MakusEngine.cpp" />
     <ClCompile Include="Engine\src\Window.cpp" />
+    <ClCompile Include="Engine\src\Graphics.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\include\MakusEngine.h" />
     <ClInclude Include="Engine\include\Window.h" />
+    <ClInclude Include="Engine\include\Graphics.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

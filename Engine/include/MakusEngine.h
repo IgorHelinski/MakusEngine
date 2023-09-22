@@ -12,6 +12,7 @@ public:
 	virtual void OnCreate();
 	virtual void OnUpdate();
 	virtual void OnQuit();
+
 	void HelloWorld();
 };
 
