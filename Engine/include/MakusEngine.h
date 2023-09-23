@@ -22,8 +22,7 @@ public:
 	unsigned int LinkShaders(unsigned int vertexShader, unsigned int fragmentShader);
 
 public:
-	int windowWidth = 1024;
-	int windowHeight = 512;
-	const char* windowTitle = "dev tests";
+	const int windowWidth = 1024;
+	const int windowHeight = 512;
 };
 

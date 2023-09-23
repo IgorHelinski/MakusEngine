@@ -52,7 +52,7 @@ void MakusEngine::StartMakus()
 
 void MakusEngine::OnCreate()
 {
-	px = 300;
+	px = 600;
 	py = 300;
 }
 
@@ -64,7 +64,7 @@ void MakusEngine::OnUpdate()
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(0, 1024, 512, 0, 0, 1);
+	glOrtho(0, windowWidth, windowHeight, 0, 0, 1);
 
 	glColor3f(1, 1, 0);
 	glPointSize(8);
