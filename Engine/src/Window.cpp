@@ -2,6 +2,8 @@
 #include <GLFW/include/glfw3.h>
 #include <iostream>
 
+void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+
 Window::Window()
 {
 }
@@ -31,6 +33,13 @@ void Window::CreateWindow(int width, int height, const char* title)
 
 	glfwMakeContextCurrent(GlfwWindow);
 	std::cout << "Created new window and set current GLFW context" << '\n';
+	glfwSetFramebufferSizeCallback(GlfwWindow, framebuffer_size_callback);
+}
+
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+	std::cout << "Resized window" << '\n';
+	glViewport(0, 0, width, height);
 }
 
 
