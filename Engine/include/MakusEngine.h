@@ -20,5 +20,10 @@ public:
 	unsigned int VertexShaderSetup();
 	unsigned int FragmentShaderSetup();
 	unsigned int LinkShaders(unsigned int vertexShader, unsigned int fragmentShader);
+
+public:
+	int windowWidth = 1024;
+	int windowHeight = 512;
+	const char* windowTitle = "dev tests";
 };
 
