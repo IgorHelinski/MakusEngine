@@ -14,5 +14,11 @@ public:
 	virtual void OnQuit();
 
 	void HelloWorld();
+
+public:
+	// for debug
+	unsigned int VertexShaderSetup();
+	unsigned int FragmentShaderSetup();
+	unsigned int LinkShaders(unsigned int vertexShader, unsigned int fragmentShader);
 };
 

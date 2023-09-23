@@ -33,7 +33,8 @@ void Window::CreateWindow(int width, int height, const char* title)
 
 	glfwMakeContextCurrent(GlfwWindow);
 	std::cout << "Created new window and set current GLFW context" << '\n';
-	glfwSetFramebufferSizeCallback(GlfwWindow, framebuffer_size_callback);
+
+	//glfwSetFramebufferSizeCallback(GlfwWindow, framebuffer_size_callback);
 }
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
