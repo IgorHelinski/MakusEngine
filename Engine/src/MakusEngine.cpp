@@ -4,23 +4,29 @@
 #include <MakusEngine.h>
 #include <Window.h>
 #include <Graphics.h>
+#include <Input.h>
 
 #include <iostream>
+#include <math.h>
+#define PI 3.1415926535
 
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
-float px, py;
+float px, py; // player position
+float pdx, pdy; // player delta
+float pa; // player angle
 
 int mapX = 8, mapY = 8, mapS = 64;
 int map[] = {
 	1,1,1,1,1,1,1,1,
 	1,0,0,0,0,0,0,1,
-	1,0,1,1,0,0,0,1,
-	1,0,0,1,0,0,0,1,
 	1,0,0,0,0,0,0,1,
-	1,0,0,0,0,1,0,1,
-	1,0,0,0,0,1,0,1,
+	1,0,0,0,0,0,0,1,
+	1,0,0,0,0,0,0,1,
+	1,0,0,0,0,0,0,1,
+	1,0,0,0,0,0,0,1,
 	1,1,1,1,1,1,1,1,
 };
+
+void OnInput(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 MakusEngine::MakusEngine()
 {
@@ -34,17 +40,13 @@ void MakusEngine::StartMakus()
 {
 	Window window;
 	window.InitWindow();
-	window.CreateWindow(windowWidth, windowHeight, "Makus Engine | dev tests");
-	glfwSetKeyCallback(window.GlfwWindow, key_callback);
+	window.CreateWindow(windowWidth, windowHeight, "Makus Engine | Snake");
+
+	Input input;
+	input.SetCallback(window.GlfwWindow, OnInput);
 	
 	Graphics graphics;
 	graphics.InitGraphics();
-
-	//GLuint VertexArrayID;
-	//glGenVertexArrays(1, &VertexArrayID);
-	//glBindVertexArray(VertexArrayID);
-
-	//
 
 	std::cout << "OpenGL version - " << glGetString(GL_VERSION) << std::endl;
 
@@ -66,8 +68,11 @@ void MakusEngine::StartMakus()
 
 void MakusEngine::OnCreate()
 {
-	px = 600;
+	px = 300;
 	py = 300;
+
+	pdx = cos(pa) * 5;
+	pdy = sin(pa) * 5;
 }
 
 void MakusEngine::OnUpdate()
@@ -87,6 +92,12 @@ void MakusEngine::OnUpdate()
 	glPointSize(8);
 	glBegin(GL_POINTS);
 	glVertex2i(px, py);
+	glEnd();
+
+	glLineWidth(3);
+	glBegin(GL_LINES);
+	glVertex2i(px, py);
+	glVertex2i(px + pdx * 5, py + pdy * 5);
 	glEnd();
 }
 
@@ -144,11 +155,6 @@ unsigned int MakusEngine::LinkShaders(unsigned int vertexShader, unsigned int fr
 	return shaderProgram;
 }
 
-void MakusEngine::HandleInput()
-{
-
-}
-
 void MakusEngine::DrawMap2D() {
 	int xo, yo;
 	for (int y = 0; y < mapY; y++) {
@@ -170,16 +176,36 @@ void MakusEngine::DrawMap2D() {
 	}
 }
 
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+void OnInput(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-	if (key == GLFW_KEY_A && (action == GLFW_PRESS ||  action == GLFW_REPEAT))
-		px -= 5;
+	if (key == GLFW_KEY_A && (action == GLFW_PRESS || action == GLFW_REPEAT)) 
+	{
+		pa -= 0.1;
+		if (pa < 0)
+			pa += 2 * PI;
+
+		pdx = cos(pa) * 5;
+		pdy = sin(pa) * 5;
+	}
 	if (key == GLFW_KEY_D && (action == GLFW_PRESS || action == GLFW_REPEAT))
-		px += 5;
-	if (key == GLFW_KEY_W && (action == GLFW_PRESS || action == GLFW_REPEAT))
-		py -= 5;
+	{
+		pa += 0.1;
+		if (pa > 2 * PI)
+			pa = 0;
+
+		pdx = cos(pa) * 5;
+		pdy = sin(pa) * 5;
+	}
+	if (key == GLFW_KEY_W && (action == GLFW_PRESS || action == GLFW_REPEAT)) 
+	{
+		px += pdx;
+		py += pdy;
+	}
 	if (key == GLFW_KEY_S && (action == GLFW_PRESS || action == GLFW_REPEAT))
-		py += 5;
+	{
+		px -= pdx;
+		py -= pdy;
+	}
 }
 
 

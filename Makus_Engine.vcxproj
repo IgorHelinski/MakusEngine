@@ -160,11 +160,13 @@
     <ClCompile Include="Engine\src\MakusEngine.cpp" />
     <ClCompile Include="Engine\src\Window.cpp" />
     <ClCompile Include="Engine\src\Graphics.cpp" />
+    <ClCompile Include="Engine\src\Input.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\include\MakusEngine.h" />
     <ClInclude Include="Engine\include\Window.h" />
     <ClInclude Include="Engine\include\Graphics.h" />
+    <ClInclude Include="Engine\include\Input.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

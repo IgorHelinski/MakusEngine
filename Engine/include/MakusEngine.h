@@ -21,7 +21,6 @@ public:
 	unsigned int FragmentShaderSetup();
 	unsigned int LinkShaders(unsigned int vertexShader, unsigned int fragmentShader);
 
-	void HandleInput();
 	void DrawMap2D();
 
 public:
