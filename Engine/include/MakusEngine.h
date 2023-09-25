@@ -24,7 +24,7 @@ public:
 	void DrawMap2D();
 
 public:
-	const int windowWidth = 1024;
+	const int windowWidth = 512;
 	const int windowHeight = 512;
 };
 
