@@ -7,7 +7,20 @@
 
 #include <iostream>
 
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 float px, py;
+
+int mapX = 8, mapY = 8, mapS = 64;
+int map[] = {
+	1,1,1,1,1,1,1,1,
+	1,0,0,0,0,0,0,1,
+	1,0,1,1,0,0,0,1,
+	1,0,0,1,0,0,0,1,
+	1,0,0,0,0,0,0,1,
+	1,0,0,0,0,1,0,1,
+	1,0,0,0,0,1,0,1,
+	1,1,1,1,1,1,1,1,
+};
 
 MakusEngine::MakusEngine()
 {
@@ -22,13 +35,14 @@ void MakusEngine::StartMakus()
 	Window window;
 	window.InitWindow();
 	window.CreateWindow(windowWidth, windowHeight, "Makus Engine | dev tests");
+	glfwSetKeyCallback(window.GlfwWindow, key_callback);
 	
 	Graphics graphics;
 	graphics.InitGraphics();
 
-	GLuint VertexArrayID;
-	glGenVertexArrays(1, &VertexArrayID);
-	glBindVertexArray(VertexArrayID);
+	//GLuint VertexArrayID;
+	//glGenVertexArrays(1, &VertexArrayID);
+	//glBindVertexArray(VertexArrayID);
 
 	//
 
@@ -66,6 +80,9 @@ void MakusEngine::OnUpdate()
 	glLoadIdentity();
 	glOrtho(0, windowWidth, windowHeight, 0, 0, 1);
 
+	DrawMap2D();
+
+	// draw player
 	glColor3f(1, 1, 0);
 	glPointSize(8);
 	glBegin(GL_POINTS);
@@ -125,6 +142,44 @@ unsigned int MakusEngine::LinkShaders(unsigned int vertexShader, unsigned int fr
 	glDeleteShader(fragmentShader);
 
 	return shaderProgram;
+}
+
+void MakusEngine::HandleInput()
+{
+
+}
+
+void MakusEngine::DrawMap2D() {
+	int xo, yo;
+	for (int y = 0; y < mapY; y++) {
+		for (int x = 0; x < mapX; x++) {
+			if (map[y * mapX + x] == 1)
+				glColor3f(1, 1, 1);
+			else
+				glColor3f(0, 0, 0);
+
+			xo = x * mapS;
+			yo = y * mapS;
+			glBegin(GL_QUADS);
+			glVertex2i(xo +1, yo +1);
+			glVertex2i(xo +1, yo+ mapS - 1);
+			glVertex2i(xo + mapS - 1, yo + mapS - 1);
+			glVertex2i(xo + mapS - 1, yo + 1);
+			glEnd();
+		}
+	}
+}
+
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+	if (key == GLFW_KEY_A && (action == GLFW_PRESS ||  action == GLFW_REPEAT))
+		px -= 5;
+	if (key == GLFW_KEY_D && (action == GLFW_PRESS || action == GLFW_REPEAT))
+		px += 5;
+	if (key == GLFW_KEY_W && (action == GLFW_PRESS || action == GLFW_REPEAT))
+		py -= 5;
+	if (key == GLFW_KEY_S && (action == GLFW_PRESS || action == GLFW_REPEAT))
+		py += 5;
 }
 
 
